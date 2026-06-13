@@ -33,6 +33,12 @@ Hey everyone! My name is d0ct0rvrach, I'm a self-taught developer. 2 years ago I
 
 ![Snake](screenshots/snake%20game.png)
 
+**5) FSOD - An analogue of BSOD, currently triggers on only 2 reasons: division by zero and invalid memory access**
+
+**The crash command divides by zero**
+
+![FSOD](screenshots/FSOD.png)
+
 ## Shell commands
 | Command | Description |
 |---------|-------------|
