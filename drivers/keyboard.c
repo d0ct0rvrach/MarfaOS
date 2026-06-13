@@ -7,7 +7,7 @@
 
 int test_ps2();
 
-// --- НОВОЕ: Кольцевой буфер для символов ---
+//  НОВОЕ: Кольцевой буфер для символов 
 static char key_buffer[256];
 static int head = 0; // Индекс для записи (куда кладёт прерывание)
 static int tail = 0; // Индекс для чтения (откуда забирает Шелл)
@@ -50,7 +50,7 @@ char get_char() {
     tail = (tail + 1) % 256;
     return c;
 }
-// -------------------------------------------
+// Кастрированная раскладка
 
 char scan_to_char(unsigned char scancode) {
     switch(scancode) {
