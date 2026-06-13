@@ -3,3 +3,7 @@
 *.iso
 *.img
 iso/
+all_code.txt
+kernel
+kernel.c.bak
+structure.txt
