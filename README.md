@@ -15,6 +15,24 @@ Hey everyone! My name is d0ct0rvrach, I'm a self-taught developer. 2 years ago I
 - Snake game (WASD controls)
 - Boots on real hardware via USB flash drive
 
+## Screenshots
+
+**1) The system appears in GRUB! (When I launched it for the first time I was so hyped!)**
+
+![GRUB](screenshots/GRUB.png)
+
+**2) Logo — made in blue tones, planning to change it to purple later**
+
+![Logo](screenshots/logotipe.png)
+
+**3) Shell — like Windows cmd but mine!**
+
+![Shell](screenshots/shell.png)
+
+**4) Snake! The first game in this OS, I don't plan to update it in the future — I'll leave it as a monument!**
+
+![Snake](screenshots/snake%20game.png)
+
 ## Shell commands
 | Command | Description |
 |---------|-------------|
