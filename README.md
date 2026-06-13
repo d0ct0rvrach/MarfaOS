@@ -1,4 +1,4 @@
-# MarfaOS
+# MarfaOS V1.0
 
 Hey everyone! My name is d0ct0rvrach, I'm a self-taught developer. 2 years ago I decided to step into the world of what people call low-level code. And I liked it, I liked it more than basic Python etc. A couple of months ago I started writing my own OS, I decided to name it after my cat Marfa — this is my first big project! Don't judge me! HAHAHA
 
