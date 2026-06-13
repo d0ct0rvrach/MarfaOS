@@ -1,0 +1,19 @@
+{
+    "configurations": [
+        {
+            "name": "AccordOS",
+            "includePath": [
+                "${workspaceFolder}/**"
+            ],
+            "defines": [
+                "__i386__"
+            ],
+            "intelliSenseMode": "linux-gcc-x86",
+            "compilerArgs": [
+                "-ffreestanding",
+                "-nostdlib"
+            ]
+        }
+    ],
+    "version": 4
+}
