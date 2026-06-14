@@ -15,6 +15,11 @@ Hey everyone! My name is d0ct0rvrach, I'm a self-taught developer. 2 years ago I
 - Snake game (WASD controls)
 - Boots on real hardware via USB flash drive
 
+## Notes
+**Ramdisk** — Made for the `dir` and `cat` commands, since the ATA (or better SATA) disk driver will be written in version 2.0. For obvious reasons, the OS cannot read and write files from disk yet, but I REALLY wanted to implement `dir` and `cat` — so I borrowed the Multiboot protocol standard to load any files that are pre-packed into the ISO image. And then they can already be read!
+
+**GUI mode** — Switches to VGA Mode 13h (320x200, 256 colors), currently just a green screen — groundwork for the future. Most likely won't work on real hardware since this technology is from the 80s-90s and is already gathering dust in grandpa's basement.
+
 ## Screenshots
 
 **1) The system appears in GRUB! (When I launched it for the first time I was so hyped!)**
