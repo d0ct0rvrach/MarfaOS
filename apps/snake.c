@@ -3,8 +3,8 @@
 #include "../drivers/keyboard.h"
 #include "../utils/utils.h"
 
-// Это игра, змейка. К сожалению не на шарпе АХХАХАХАХА
-// До dir_u ее константы длина поля итд крч
+// This is a game, snake. Unfortunately not in C# LMAOOO
+// Below dir_u are its constants, field length etc
 #define FIELD_W 40
 #define FIELD_H 20
 #define MAX_LEN 100 
@@ -21,7 +21,7 @@ static int dir_x;
 static int dir_y;
 static int score = 0;
 
-// Это поле, его отрисовка
+// field rendering
 static void draw_field(int score) {
 
     clear_screen();
@@ -39,7 +39,7 @@ static void draw_field(int score) {
         kprint("Q - quit", 0, 55, 0x07);
 
 }
-// отрисовка змеи и еды
+// draw snake and food
 static void draw_snake() {
     for (int i = 0; i < snake_len; i++) {
         char c = (i == 0) ? '@' : 'o';
@@ -48,14 +48,14 @@ static void draw_snake() {
     put_char('*', (food.y + 3) * 80 + food.x + 1, 0x0C);
 }
 
-extern volatile unsigned int timer_ticks; // рабоатет на тиках
-// генерация еды, не мира, еды
+extern volatile unsigned int timer_ticks; // runs on ticks
+// food spawn, not world spawn, food
 static void spawn_food() {
-    food.x = (timer_ticks * 7 + snake[0].x * 3 + 13) % FIELD_W; // теперь тут два источника случайности
+    food.x = (timer_ticks * 7 + snake[0].x * 3 + 13) % FIELD_W; // two sources of randomness now
     food.y = (timer_ticks * 3 + snake[0].y * 5 + 7) % FIELD_H; 
 }
 
-void snake_game() { // главная функция игры 
+void snake_game() { // main game function
     score = 0;
     snake_len = 3;
     snake[0].x = 10; snake[0].y = 5;

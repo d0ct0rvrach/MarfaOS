@@ -1,30 +1,30 @@
 [GLOBAL idt_flush]
 
 idt_flush:
-    mov eax, [esp+4]  ; указатель на idt_ptr
-    lidt [eax]        ; загружаем IDT в проц
+    mov eax, [esp+4]  ; pointer to idt_ptr
+    lidt [eax]        ; load IDT into CPU
     ret
 
 [EXTERN current_task_esp]
 [EXTERN irq_handler]
 
 irq_common_stub:
-    pusha             ; сохраняем все регистры
+    pusha             ; save all registers
     mov ax, ds
     push eax
 
-    mov ax, 0x10      ; сегмент ядра
+    mov ax, 0x10      ; kernel segment
     mov ds, ax
     mov es, ax
     mov fs, ax
     mov gs, ax
 
-    ; --- многозадачность ---
+    ; --- multitasking ---
     mov eax, esp
     push eax
-    call irq_handler  ; уходим в планировщик
-    mov esp, eax      ; подменяем стек — теперь другая задача
-    ; -----------------------
+    call irq_handler  ; go to scheduler
+    mov esp, eax      ; swap stack — now another task
+    ; -------------------
 
     pop eax
     mov ds, ax
@@ -32,24 +32,24 @@ irq_common_stub:
     mov fs, ax
     mov gs, ax
     popa
-    add esp, 8        ; чистим стек
-    iret              ; возврат в задачу
+    add esp, 8        ; clean stack
+    iret              ; return to task
 
 [GLOBAL irq0]
 [GLOBAL irq1]
 
-; макрос IRQ
+; IRQ macro
 %macro IRQ 2
   [GLOBAL irq%1]
   irq%1:
     cli
-    push byte 0       ; заглушка кода ошибки
-    push byte %2      ; номер прерывания
+    push byte 0       ; error code stub
+    push byte %2      ; interrupt number
     jmp irq_common_stub
 %endmacro
 
-IRQ 0, 32    ; таймер
-IRQ 1, 33    ; клавиатура
+IRQ 0, 32    ; timer
+IRQ 1, 33    ; keyboard
 
 [GLOBAL isr0]
 isr0:

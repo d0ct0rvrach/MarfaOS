@@ -1,7 +1,7 @@
 #include "fsod.h"
 #include "../drivers/video.h"
 #include "../cpu/isr.h"
-// ФСОД
+// FSOD
 void fsod(const char *message) {
     clear_screen(); 
 

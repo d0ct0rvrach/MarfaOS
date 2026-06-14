@@ -75,16 +75,16 @@ void kprint_at(char *message, int row, int col, char attribute) {
 }
 
 void kprint_int(int value, int row, int col, char attribute) {
-    char str[12]; // Буфер для числа (хватит для -2147483648)
+    char str[12]; // buffer for the number (fits -2147483648)
     int i = 0;
-    
-    // Обработка нуля
+
+    // handle zero
     if (value == 0) {
         kprint("0", row, col, attribute);
         return;
     }
 
-    // Алгоритм перевода числа в строку (разворачиваем число)
+    // integer to string (reversed)
     char temp[12];
     int j = 0;
     while (value > 0) {
@@ -92,7 +92,7 @@ void kprint_int(int value, int row, int col, char attribute) {
         value /= 10;
     }
 
-    // Переворачиваем строку в правильный порядок
+    // reverse string to correct order
     char final_str[12];
     int k = 0;
     while (j > 0) {

@@ -16,11 +16,11 @@ extern task_t *ready_queue;
 extern task_t *current_task;
 extern unsigned int total_system_ticks;
 
-#define HISTORY_SIZE 10 //хранение последних команд
+#define HISTORY_SIZE 10 // store last commands
 
-static char history[HISTORY_SIZE][80]; //Массив из10 строк по 80 каждая
-static int history_count = 0; //сохраненые комнды точнее количество сохраненых 
-static int history_index = -1; // показатель команды при нажатии стрлки
+static char history[HISTORY_SIZE][80]; // array of 10 lines, 80 chars each
+static int history_count = 0; // number of saved commands
+static int history_index = -1; // current position when scrolling with arrow keys
 
 
 void handle_command(char *input, int *row) {
@@ -82,7 +82,7 @@ void handle_command(char *input, int *row) {
     current_row = 0;
     current_col = 0;
     }
-   else if (strcmp(input, "crash") == 0) { // вызывает фСОД для теста, посмотрите) 
+   else if (strcmp(input, "crash") == 0) { // triggers FSOD for testing, check it out)
     asm volatile("int $0");
     }
     else if (input[0] == '\0') {
@@ -132,7 +132,7 @@ void run_shell() {
     for(int i=0; i<80; i++) input_buffer[i] = 0;
 
     while(1) {
-        // Ожидание
+        // waiting
         current_task->state = STATE_WAITING;
 
         char c = get_char();
@@ -141,11 +141,11 @@ void run_shell() {
 
             if (c == '\n') {
                 input_buffer[char_idx] = '\0';
-                if (char_idx > 0) { // не сохранять пустые команды
+                if (char_idx > 0) { // don't save empty commands
                 for(int i = 0; i < char_idx + 1; i++)
-                history[history_count % HISTORY_SIZE][i] = input_buffer[i]; // буфер кольцо
-                history_count++; // + счетчик
-                 history_index = -1; // сброс пизиции листания
+                history[history_count % HISTORY_SIZE][i] = input_buffer[i]; // ring buffer
+                history_count++; // increment counter
+                 history_index = -1; // reset scroll position
                 }
                 handle_command(input_buffer, &current_row);
                 for(int i=0; i<80; i++) input_buffer[i] = 0;
@@ -159,7 +159,7 @@ void run_shell() {
                 update_cursor(current_row, 16 + char_idx);
             }
 
-            // стрелки
+            // arrow keys
             else if (c == '\x01' && history_count > 0) {
                 if (history_index == -1) history_index = history_count - 1;
             else if (history_index > 0) history_index--;

@@ -10,17 +10,17 @@ struct cpu_context {
     unsigned int eip, cs, eflags, useresp, ss;
 };
 
-// ОБНОВЛЕННАЯ структура задачи (Паспорт процесса)
+// task struct (process passport)
 typedef struct task {
     int id;
     unsigned int esp;
     unsigned int ticks;
     unsigned int priority;
-    int state;             // <-- НОВОЕ ПОЛЕf
+    int state;             // <-- NEW FIELDf
     struct task *next;
 } task_t;
 
-// Объявления функций управления задачами
+// task management function declarations
 void init_multitasking();
 void create_task(void (*entry_point)());
 unsigned int switch_task(unsigned int esp);

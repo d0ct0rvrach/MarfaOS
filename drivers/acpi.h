@@ -3,7 +3,7 @@
 
 #include "io.h"
 
-// Основная функция выключения
+// main shutdown function
 void off();
 
 #endif

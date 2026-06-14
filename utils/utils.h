@@ -9,10 +9,10 @@ typedef unsigned short uint16_t;
 typedef unsigned int   uint32_t;
 typedef int            int32_t;
 
-void sleep(int ms); // Добавили ;
+void sleep(int ms); // added ;
 int strcmp(char *s1, char *s2);
-void wait(int ticks); // Оставь на всякий случай, если она где-то вызывается
-char *skip_command(char *input); //Обьявление функции и возврат указателья
+void wait(int ticks); // keep just in case it's called somewhere
+char *skip_command(char *input); // function declaration, returns pointer to arg
 int strncmp(char *s1, char *s2, int n);
 
 #endif

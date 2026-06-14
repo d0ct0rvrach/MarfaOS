@@ -3,7 +3,7 @@
 
 #include <stdint.h>
 
-// Структура регистров 
+// registers struct
 typedef struct registers {
     unsigned int ds;
     unsigned int edi, esi, ebp, esp, ebx, edx, ecx, eax;
@@ -13,7 +13,7 @@ typedef struct registers {
 
 typedef unsigned int (*isr_t)(unsigned int);
 
-// Функции
+// functions
 void pic_remap();
 void register_interrupt_handler(unsigned char n, isr_t handler);
 

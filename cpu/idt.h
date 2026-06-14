@@ -3,16 +3,16 @@
 
 #include "drivers/io.h"
 
-/* Структура элемента таблицы прерываний (IDT Entry) */
+/* IDT Entry struct */
 struct idt_entry_struct {
-    unsigned short base_low;  // Младшие 16 бит адреса функции
-    unsigned short sel;       // Сегмент ядра (обычно 0x08)
-    unsigned char  always0;   // Всегда 0
-    unsigned char  flags;     // Флаги доступа
-    unsigned short base_high; // Старшие 16 бит адреса
+    unsigned short base_low;  // lower 16 bits of handler address
+    unsigned short sel;       // kernel segment (usually 0x08)
+    unsigned char  always0;   // always 0
+    unsigned char  flags;     // access flags
+    unsigned short base_high; // upper 16 bits of address
 } __attribute__((packed));
 
-/* Структура для команды LIDT (загрузка таблицы в процессор) */
+/* LIDT command struct (load table into CPU) */
 struct idt_ptr_struct {
     unsigned short limit;
     unsigned int   base;

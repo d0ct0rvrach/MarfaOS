@@ -1,12 +1,12 @@
 #include "task.h"
 #include "../utils/utils.h"
 
-// Очередь задач
+// task queue
 task_t *current_task = 0;
 task_t *ready_queue = 0;
 int next_pid = 1;
 
-// Тики
+// ticks
 unsigned int total_system_ticks = 0;
 
 void init_multitasking() {
@@ -28,7 +28,7 @@ void create_task(void (*entry_point)()) {
     unsigned int *stack = (unsigned int *)(0x600000 + (next_pid * 0x1000));
     unsigned int *esp = stack;
 
-    // Стек
+    // stack
     *(--esp) = 0x0202;
     *(--esp) = 0x08;
     *(--esp) = (unsigned int)entry_point;
@@ -50,7 +50,7 @@ void create_task(void (*entry_point)()) {
     ready_queue->next = new_task;
 }
 
-// Переключатель — каждые 10мс
+// scheduler — every 10ms
 unsigned int switch_task(unsigned int last_esp) {
     if (current_task == 0) return last_esp;
 

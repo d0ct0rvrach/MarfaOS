@@ -2,7 +2,7 @@
 #define SPEAKER_H
 #include "utils/utils.h"
 
-// Основные функции драйвера
+// main driver functions
 void play_sound(uint32_t nFrequence);
 void stop_sound();
 void beep();

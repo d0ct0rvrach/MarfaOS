@@ -1,8 +1,8 @@
 #ifndef MEMORY_H
-#define MEMORY_H // защита х2
+#define MEMORY_H // double guard
 
-void init_heap(); // вызов
-void *kmalloc(unsigned int size); //запрос байта и возвращает указатель
-void kfree(void *ptr); // пока заглушка
+void init_heap(); // call
+void *kmalloc(unsigned int size); // request bytes, returns pointer
+void kfree(void *ptr); // stub for now
 
 #endif

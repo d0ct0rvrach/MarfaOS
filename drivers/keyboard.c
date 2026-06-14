@@ -7,10 +7,10 @@
 
 int test_ps2();
 
-//  НОВОЕ: Кольцевой буфер для символов 
+// Ring buffer for characters
 static char key_buffer[256];
-static int head = 0; // Индекс для записи (куда кладёт прерывание)
-static int tail = 0; // Индекс для чтения (откуда забирает Шелл)
+static int head = 0; // write index (set by interrupt)
+static int tail = 0; // read index (read by shell)
 static int extended = 0;
 
 void keyboard_callback() {
@@ -27,10 +27,10 @@ void keyboard_callback() {
     return;
     }
 
-    if (scancode < 0x80) { // Только нажатие
+    if (scancode < 0x80) { // key press only
         char c = scan_to_char(scancode);
         if (c != 0) {
-            // Кладём символ в твой кольцевой буфер
+            // put char into ring buffer
             key_buffer[head] = c;
             head = (head + 1) % 256;
         }
@@ -42,15 +42,15 @@ unsigned int keyboard_handler_wrapper(unsigned int esp) {
     return esp;          
 }
 
-// Эту функцию будет вызывать Шелл вместо прямого опроса порта
+// shell calls this instead of polling the port directly
 char get_char() {
-    if (head == tail) return 0; // Буфер пуст
+    if (head == tail) return 0; // buffer empty
     
     char c = key_buffer[tail];
     tail = (tail + 1) % 256;
     return c;
 }
-// Кастрированная раскладка
+// Castrated keyboard layout
 
 char scan_to_char(unsigned char scancode) {
     switch(scancode) {

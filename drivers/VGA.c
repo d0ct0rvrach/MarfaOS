@@ -5,13 +5,13 @@
 #define VGA_SCREEN_WIDTH 320
 #define VGA_SCREEN_HEIGHT 200
 
-// Порты палитры
+// palette ports
 #define PALETTE_INDEX 0x3C8
 #define PALETTE_DATA  0x3C9
 #define ATTRIBUTE_CTRL_RESET 0x3DA
 #define ATTRIBUTE_CTRL_WRITE 0x3C0
 
-// Твой проверенный массив регистров
+// tested register array
 unsigned char mode_13h_regs[] = {
     0x63, 0x03, 0x01, 0x0F, 0x00, 0x0E, 0x5F, 0x4F, 0x50, 0x82, 
     0x54, 0x80, 0xBF, 0x1F, 0x00, 0x41, 0x00, 0x00, 0x00, 0x00, 
@@ -33,16 +33,16 @@ static void apply_pipboy_theme() {
     vga_color_t dark_green = {0, 20, 0};
     vga_color_t light_green = {0, 63, 0};
 
-    vga_set_palette(0, black);        // Фон
-    vga_set_palette(1, dark_green);   // Альтернативный фон (на случай смещения)
-    vga_set_palette(2, dark_green);   // Основной фон
-    vga_set_palette(10, light_green); // Текст и линии
+    vga_set_palette(0, black);        // background
+    vga_set_palette(1, dark_green);   // alternative background (in case of offset)
+    vga_set_palette(2, dark_green);   // main background
+    vga_set_palette(10, light_green); // text and lines
 }
 
 void set_mode_13h() {
     unsigned char *regs = mode_13h_regs;
     
-    // 1. Установка базовых регистров
+    // 1. Set base registers
     outb(0x3C2, *regs++);
     for(int i = 0; i < 5; i++) { outb(0x3C4, i); outb(0x3C5, *regs++); }
     outb(0x3D4, 0x03); outb(0x3D5, inb(0x3D5) | 0x80);
@@ -50,18 +50,18 @@ void set_mode_13h() {
     for(int i = 0; i < 25; i++) { outb(0x3D4, i); outb(0x3D5, *regs++); }
     for(int i = 0; i < 9; i++) { outb(0x3CE, i); outb(0x3CF, *regs++); }
     
-    // 2. Настройка контроллера атрибутов со сбросом
+    // 2. Configure attribute controller with reset
     for(int i = 0; i < 21; i++) {
         inb(ATTRIBUTE_CTRL_RESET); 
         outb(ATTRIBUTE_CTRL_WRITE, i);
         outb(ATTRIBUTE_CTRL_WRITE, *regs++);
     }
     
-    // 3. Включение дисплея (Бит 5)
+    // 3. Enable display (Bit 5)
     inb(ATTRIBUTE_CTRL_RESET);
     outb(ATTRIBUTE_CTRL_WRITE, 0x20);
 
-    // 4. Загрузка нашей темы
+    // 4. Load our theme
     apply_pipboy_theme();
 }
 

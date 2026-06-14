@@ -9,29 +9,29 @@ void init_all_drivers() {
     kprint("--- Marfa OS SYSTEM BOOT ---", 0, 0, 0x0B);
     wait(1);
 
-    // Проверка Видео
+    // Video check
     kprint("VGA Video RAM Test..........", 2, 0, 0x0F);
     if (test_vga()) kprint("[ PASSED ]", 2, 30, 0x0A);
     else kprint("[ FAILED ]", 2, 30, 0x0C);
     wait(1);
 
-    // Проверка Клавиатуры
+    // Keyboard check
     kprint("PS/2 Controller Test........", 3, 0, 0x0F);
     if (test_ps2()) kprint("[ READY ]", 3, 30, 0x0A);
     else kprint("[ ERROR ]", 3, 30, 0x0C);
     wait(1);
 
-    // Находим блок звука в drivers/init.c
+    // Sound block in drivers/init.c
     kprint("PC Speaker Test.............", 4, 0, 0x0F);
     
     for(volatile int i = 0; i < 80000000; i++);
 
     if (test_speaker()) {
-        // Если вернул 1
-        kprint("[ OK ]", 4, 30, 0x0A); 
+        // returned 1
+        kprint("[ OK ]", 4, 30, 0x0A);
     } else {
-        // Если ты в драйвере поставил return 0 — сработает эта ветка!
-        kprint("[ FAIL ]", 4, 30, 0x0C); 
+        // if you put return 0 in the driver — this branch fires!
+        kprint("[ FAIL ]", 4, 30, 0x0C);
     }
 
     kprint("All systems GO. Starting Shell...", 6, 0, 0x0E);
@@ -41,6 +41,6 @@ void init_all_drivers() {
 } 
     */
 
-    // Это старый файл бут лога, он отвратительный. НЕ В КОЕМ СЛУЧАЕ НЕ УБИРАТЬ КОМЕНТИРОВАНИЕ, УМРЕТ СИСТЕМА
+    // This is the old boot log file, it's disgusting. DO NOT REMOVE THE COMMENT, THE SYSTEM WILL DIE
 
-    // ну короче эт памятник
+    // basically this is a monument

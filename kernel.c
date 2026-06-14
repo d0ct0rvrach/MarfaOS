@@ -21,28 +21,28 @@ extern void background_clock();
 
 void kmain(unsigned int magic, unsigned int mboot_addr) {
 
-    init_heap(); // инициализация кучк
+    init_heap(); // heap init
 
     init_isr_handlers();
-    
-    current_row = 0; // Экран
+
+    current_row = 0; // screen
     current_col = 0;
     clear_screen();
 
-    run_boot_diagnostics(); // Диагностика
-    
+    run_boot_diagnostics(); // diagnostics
+
     ramdisk_init(mboot_addr);
 ;
-    init_multitasking(); // Многозадачность
+    init_multitasking(); // multitasking
 
-    asm volatile("sti"); // Сердце
-    
-     print_logo(); //Логотип!!!
+    asm volatile("sti"); // heartbeat
+
+     print_logo(); // LOGO!!!
     beep();
      create_task(background_clock);
 
     kprint("MarfaOS: Multitasking enabled.\n", 0,   25, 0x0F);
 
-    // Шелл
+    // shell
     run_shell();
 }

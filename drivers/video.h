@@ -1,7 +1,7 @@
 #ifndef VIDEO_H
 #define VIDEO_H
 
-// Цвета текста 
+// text colors
 #define COLOR_BLACK         0x0
 #define COLOR_BLUE          0x1
 #define COLOR_GREEN         0x2
@@ -19,19 +19,18 @@
 #define COLOR_YELLOW        0xE
 #define COLOR_WHITE         0xF
 
-// Функция-помощник для объединения цвета текста и фона
+// helper to combine text and background color
 #define MAKE_COLOR(fg, bg) ((bg << 4) | fg)
 
-// --- ВОТ ЭТО МЫ ДОБАВИЛИ ---
-// Эти переменные будут общими для видео-драйвера и Шелла
+// shared between video driver and Shell
 extern int current_row;
 extern int current_col;
 
-// Функции драйвера
+// driver functions
 void put_char(char c, int pos, char color);
 void clear_screen();
 void kprint(const char *str, int row, int col, char color);
-void kprint_at_cursor(const char *str, char color); // Наша новая "умная" печать
+void kprint_at_cursor(const char *str, char color); // smart print that respects cursor
 int test_vga();
 void update_cursor(int row, int col);
 void scroll();
